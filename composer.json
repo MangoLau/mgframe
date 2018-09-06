@@ -1,0 +1,30 @@
+{
+  "name": "Mangolau/mgframe",
+  "description": "The Mango's Framework.",
+  "keywords": ["php"],
+  "license": "MIT",
+  "type": "project",
+  "require": {
+    "php": ">=7.0",
+    "psr/log" : ">=1.0.2",
+    "catfan/medoo":"*",
+    "filp/whoops":"*",
+    "symfony/var-dumper":"*",
+    "twig/twig":"*"
+  },
+  "autoload" : {
+    "psr-4" : {
+      "Core\\" : "Core/",
+      "app\\" : "app/"
+    }
+  },
+  "config": {
+    "preferred-install": "dist"
+  },
+  "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "https://packagist.phpcomposer.com"
+    }
+  }
+}
