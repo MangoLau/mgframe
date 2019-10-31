@@ -1,0 +1,134 @@
+<div class="row">
+	<div class="col-md-9">
+		<div class="box">
+			<div class="box-header with-border">
+				<h3 class="box-title">菜单列表</h3>
+			</div>
+			<div class="box-body">
+				<table class="table table-bordered text-center" id="DT">
+					<thead>
+						<tr>
+    						<th>ID</th>
+    						<th>名称</th>
+    						<th>主URL</th>
+    						<th>URL列表</th>
+    						<th>上级菜单</th>
+    						<th>授权角色</th>
+    						<th>排序值</th>
+    						<th>操作</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<!-- 添加新菜单的box -->
+		<div class="box box-primary" id="add_box">
+			<div class="box-header with-border">
+				<h3 class="box-title">添加新菜单</h3>
+			</div>
+			<form id="addform">
+				<div class="box-body">
+					<div class="form-group">
+						<label for="" class="control-label">名称：</label>
+						<input type="text" class="form-control" name="menu" placeholder="请输入名称" value="" maxlength="20" />
+					</div>
+					<div class="form-group">
+						<label for="" class="control-label">主URL：</label>
+						<input type="text" class="form-control" name="index_url" placeholder="请输入主URL" value="" maxlength="50" />
+					</div>
+					<div class="form-group">
+						<label for="" class="control-label">该模块的URL列表(支持以*结尾，如：menu/*)：</label>
+						<textarea class="form-control" name="urls" rows="5"></textarea>
+					</div>
+					<div class="form-group">
+						<label for="" class="control-label">父级菜单：</label>
+						<select class="form-control" name="parent_id">
+							<option value="0">无</option>
+							<?php foreach ($topMenus as $item) { ?>
+    						<option value="<?php echo $item['menuid']; ?>"><?php echo $item['menu']; ?></option>
+							<?php } ?>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="" class="control-label">授权角色：</label>
+    					<div class="checkbox">
+							<?php foreach ($roleList as $item) { ?>
+    						<label><input type="checkbox" name="roles" value="<?php echo $item['id']; ?>"> <?php echo $item['name']; ?></label>&nbsp;&nbsp;
+							<?php } ?>
+    					</div>
+					</div>
+					<div class="form-group">
+						<label for="" class="control-label">排序值(越大越靠前)：</label>
+						<input type="text" class="form-control" name="sort_no" placeholder="越大越靠前" value="0" maxlength="4" />
+					</div>
+					<div class="form-group">
+						<label for="" class="control-label">图标：</label>
+						<input type="text" class="form-control icon-selector" name="icon" placeholder="点击选择图标" value="" maxlength="40" />
+					</div>
+				</div>
+				<div class="box-footer">
+					<button type="submit" class="btn btn-info pull-right">提交</button>
+				</div>
+			</form>
+		</div>
+		<!-- 修改菜单的box -->
+		<div class="box box-warning" id="edit_box" style="display:none;">
+			<div class="box-header with-border">
+				<h3 class="box-title">修改菜单</h3>
+			</div>
+			<form id="editform">
+				<input type="hidden" name="status" value="" />
+				<div class="box-body">
+					<div class="form-group">
+						<label for="" class="control-label">ID：</label>
+						<input type="text" class="form-control" name="menuid" placeholder="" value="" maxlength="20" readonly="readonly" />
+					</div>
+					<div class="form-group">
+						<label for="" class="control-label">名称：</label>
+						<input type="text" class="form-control" name="menu" placeholder="" value="" maxlength="20" />
+					</div>
+					<div class="form-group">
+						<label for="" class="control-label">主URL：</label>
+						<input type="text" class="form-control" name="index_url" placeholder="" value="" maxlength="50" />
+					</div>
+					<div class="form-group">
+						<label for="" class="control-label">该模块它URL列表(支持以*结尾，如：menu/*)：</label>
+						<textarea class="form-control" name="urls" rows="5"></textarea>
+					</div>
+					<div class="form-group">
+						<label for="" class="control-label">父级菜单：</label>
+						<select class="form-control" name="parent_id">
+							<option value="0">无</option>
+							<?php foreach ($topMenus as $item) { ?>
+    						<option value="<?php echo $item['menuid']; ?>"><?php echo $item['menu']; ?></option>
+							<?php } ?>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="" class="control-label">授权角色：</label>
+    					<div class="checkbox">
+							<?php foreach ($roleList as $item) { ?>
+    						<label><input type="checkbox" name="roles" value="<?php echo $item['id']; ?>"> <?php echo $item['name']; ?></label>&nbsp;&nbsp;
+							<?php } ?>
+    					</div>
+					</div>
+					<div class="form-group">
+						<label for="" class="control-label">排序值(越大越靠前)：</label>
+						<input type="text" class="form-control" name="sort_no" placeholder="" value="0" maxlength="4" />
+					</div>
+					<div class="form-group">
+						<label for="" class="control-label">图标：</label>
+						<input type="text" class="form-control icon-selector" name="icon" placeholder="点击选择图标" value="" maxlength="40" />
+					</div>
+				</div>
+				<div class="box-footer">
+					<button type="button" id="editform_cancel" class="btn btn-default">取消</button>
+					<button type="submit" class="btn btn-info pull-right">提交</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

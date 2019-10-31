@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>管理后台</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="<?php echo $resourcesUri; ?>/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="<?php echo $resourcesUri; ?>/adminlte/bower_components/font-awesome/css/font-awesome.min.css" />
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="<?php echo $resourcesUri; ?>/adminlte/bower_components/Ionicons/css/ionicons.min.css" />
+  <!-- Theme style -->
+  <link rel="stylesheet" href="<?php echo $resourcesUri; ?>/adminlte/dist/css/AdminLTE.min.css" />
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="<?php echo $resourcesUri; ?>/adminlte/dist/css/skins/_all-skins.min.css" />
+  <!-- bootstrap wysihtml5 - text editor -->
+  <link rel="stylesheet" href="<?php echo $resourcesUri; ?>/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" />
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="<?php echo $resourcesUri; ?>/adminlte/plugins/html5shiv.min.js"></script>
+  <script src="<?php echo $resourcesUri; ?>/adminlte/plugins/respond.min.js"></script>
+  <![endif]-->
+  <!-- Google Font -->
+  <link rel="stylesheet" href="<?php echo $resourcesUri; ?>/adminlte/plugins/googlefonts.css" />
+  <!-- extra stylesheet files -->
+  <?php if (isset($layout_css) && !empty($layout_css)) { ?>
+  <?php     if (is_array($layout_css)) { foreach ($layout_css as $file) { ?>
+  <link rel="stylesheet" href="<?php echo $resourcesUri; ?>/<?php echo $file; ?>" />
+  <?php     } } else { ?>
+  <link rel="stylesheet" href="<?php echo $resourcesUri; ?>/<?php echo $layout_css; ?>" />
+  <?php     } ?>
+  <?php } ?>
+  <script type="text/javascript">
+  var $RS_URI = '<?php echo $resourcesUri; ?>';
+  <?php if(isset($layout_js_vars)) { ?>var $VARS = <?php echo json_encode($layout_js_vars); ?>;<?php }?>
+  </script>
+</head>
+<body class="hold-transition <?php echo $YafEnviron == 'product' ? 'skin-blue' : ($YafEnviron == 'test' ? 'skin-green-light' : 'skin-black-light'); ?> sidebar-mini">
+<div class="wrapper">
+
+  <header class="main-header">
+    <!-- Logo -->
+    <a href="/index/index" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>:)</b></span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>管理后台</b><small>[<?php echo $YafEnviron == 'product' ? '正式' : ($YafEnviron == 'test' ? '测试' : '开发'); ?>]</small></span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">切换导航</span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- Notifications: style can be found in dropdown.less -->
+          <!--
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-bell-o"></i>
+              <span class="label label-warning">1</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">您有 1 条新消息</li>
+              <li>
+                <ul class="menu">
+                  <li>
+                    <a href="#"><i class="fa fa-users text-aqua"></i> 您的申请已经通过</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="footer"><a href="#">View all</a></li>
+            </ul>
+          </li>
+          -->
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="<?php echo $resourcesUri; ?>/admin/user.jpg" class="user-image" alt="">
+              <span class="hidden-xs"><?php echo $sess['name']; ?></span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                <img src="<?php echo $resourcesUri; ?>/admin/user.jpg" class="img-circle" alt="">
+                <p>
+                  <span><?php echo $sess['name']; ?></span> - <span><?php echo implode(',', is_array($sess['roles']) ? $sess['roles'] : []); ?></span>
+                  <small>最近登录:<?php echo "[{$sess['lasttime']}]@{$sess['lastip']}"; ?></small>
+                </p>
+              </li>
+              <!-- Menu Body -->
+              <li class="user-body">
+              	<?php if ($superUser) { ?>
+                <table class="table text-center">
+                	<tr>
+                		<td><a class="btn btn-success btn-block" href="/admin/system_admin/index">后台账号管理</a></td>
+                	</tr>
+                	<tr>
+                		<td><a class="btn btn-warning btn-block" href="/admin/system_role/index">后台角色管理</a></td>
+                	</tr>
+                	<!--
+                	<tr>
+                		<td><a class="btn btn-danger btn-block" href="/admin/system_priv/index">特殊权限设置</a></td>
+                	</tr>
+                	-->
+                	<tr>
+                		<td><a class="btn btn-info btn-block" href="/admin/system_menu/index">后台菜单管理</a></td>
+                	</tr>
+                </table>
+              	<?php } ?>
+              </li>
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="/admin/admin/modifyPasswd" class="btn btn-default btn-flat">修改密码</a>
+                </div>
+                <div class="pull-right">
+                  <a href="/admin/admin/logout" class="btn btn-warning btn-flat">注销登录</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- search form -->
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="搜索">
+          <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">导航菜单</li>
+		<?php if (is_array($layout_menus) && !empty($layout_menus)) { foreach ($layout_menus as $item) { ?>
+		<?php if(empty($item['menus']) && $item['index_url']) { ?>
+		<li <?php echo $item['active'] ? 'class ="active"' : ''; ?> ><a href="<?php echo $item['index_url']; ?>"><i class="<?php echo $item['icon'] ? $item['icon'] : 'fa fa-gear'; ?>"></i> <?php echo $item['menu']; ?></a></li>
+		<?php } else { ?>
+		<li class="treeview <?php echo $item['open'] ? 'menu-open active' : ''; ?>">
+          <a <?php echo $item['index_url'] ? "href=\"{$item['index_url']}\"" : 'href="#" onclick="return false;"'; ?> >
+            <i class="fa fa-folder-o"></i> <span><?php echo $item['menu']; ?></span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+          <?php if ($item['menus']) { foreach ($item['menus'] as $subItem) { ?>
+            <li class="<?php echo $subItem['active'] ? 'active' : ''; ?>"><a href="<?php echo $subItem['index_url']; ?>"><i class="<?php echo $subItem['icon'] ? $subItem['icon'] : 'fa fa-gear'; ?>"></i> <?php echo $subItem['menu']; ?></a></li>
+          <?php } } ?>
+          </ul>
+        </li>
+		<?php } ?>
+        <?php } } ?>
+        <!--
+        <li class="header">LABELS</li>
+        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
+        -->
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <?php if (isset($layout_title)) { ?><h1><?php echo $layout_title; ?> <?php if ($layout_desc) { ?><small><?php echo $layout_desc; ?></small><?php } ?></h1><?php } ?>
+      <?php if (is_array($layout_links) && !empty($layout_links)) { ?>
+      <ol class="breadcrumb">
+      	<?php foreach ($layout_links as $item) { ?>
+      	<?php    if ($item['active']) { ?>
+        <li class="active"><?php echo $item['name']; ?></li>
+      	<?php    } else { ?>
+        <li><a href="<?php echo $item['url']; ?>"><i class="fa <?php echo isset($item['icon']) ? $item['icon'] : ''; ?>"></i> <?php echo $item['name']; ?></a></li>
+      	<?php    } ?>
+      	<?php } ?>
+      </ol>
+      <?php } ?>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <?php if ($layout_inc) { if (is_array($layout_inc)) { foreach ($layout_inc as $tpl) { $this->display($tpl); } } else { $this->display($layout_inc); } } ?>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+  	<!--
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 2.4.0
+    </div>
+  	-->
+    <strong>Copyright &copy; 2019-2069 <a href="#">--有限公司</a> </strong> 保留所有版权
+  </footer>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<script src="<?php echo $resourcesUri; ?>/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="<?php echo $resourcesUri; ?>/adminlte/bower_components/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.7 -->
+<script src="<?php echo $resourcesUri; ?>/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="<?php echo $resourcesUri; ?>/adminlte/dist/js/adminlte.min.js"></script>
+<!-- extra scirpt files -->
+<script src="<?php echo $resourcesUri; ?>/admin/common.js"></script>
+<?php if (isset($layout_script) && !empty($layout_script)) { ?>
+<?php     if (is_array($layout_script)) { foreach ($layout_script as $file) { ?>
+<script type="text/javascript" src="<?php echo $resourcesUri; ?>/<?php echo $file; ?>"></script>
+<?php     } } else { ?>
+<script type="text/javascript" src="<?php echo $resourcesUri; ?>/<?php echo $layout_script; ?>"></script>
+<?php     } ?>
+<?php } ?>
+</body>
+</html>

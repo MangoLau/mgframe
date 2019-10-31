@@ -1,0 +1,74 @@
+<?php include(__DIR__.'/../layout/header.phtml');?>
+<link href="<?php echo $staticRoot;?>/admin/js/plugins/jquery-chosen/jquery.chosen.min.css" rel="stylesheet">	
+<script src="<?php echo $staticRoot;?>/admin/js/plugins/jquery-chosen/jquery.chosen.min.js"></script>
+
+<div class="bg-white lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3">管理员管理</h1>
+</div>
+<div class="wrapper-md">
+	<div class="panel panel-default">
+		<div class="panel-body b-b b-grey">
+			<form id="frmsearch" action="/admin/index" editUrl="/admin/edit" deleteUrl="/admin/delete" class="form-inline form-search" role="form">
+				<div class="form-group">
+					<label>姓名 </label> <input type="text" name="name"
+						class="form-control input-sm">
+				</div>
+				<div class="form-group">
+					<label>角色 </label> 
+					<select class="chosen-select" name="roleid" style="width:120px;">
+						<option value="0">请选择</option>
+					<?php foreach($roleList as $role) { ?>	
+						<option value="<?php echo $role['id'];?>"><?php echo $role['name'];?></option>						
+					<?php } ?>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>状态 </label> 
+					<select class="chosen-select" name="status" style="width:100px;">
+						<option value="0">请选择</option>
+						<option value="1">禁用</option>
+						<option value="2">启用</option>
+					</select>
+				</div>
+				<div class="table-controls">
+					<a class="btn m-b-xs btn-sm btn-danger btn-addon" onclick="$.hook.ajax.deleteBat()">
+						<i class="fa fa-trash-o"></i>刪除
+					</a> 
+					<a href="/admin/edit" class="btn m-b-xs btn-sm btn-primary btn-addon">
+						<i class="fa fa-plus"></i>添加
+					</a>
+					<button type="submit"
+						class="btn m-b-xs btn-sm btn-primary btn-addon">
+						<i class="fa fa-search"></i>搜索
+					</button>
+				</div>
+				<input id="pageHolder" type="hidden" name="page" value="1">
+			</form>
+		</div>
+		<div class="table-responsive">
+		  <form id="frmDeleteBat">
+			<table id="datatable" class="table table-striped b-t b-light m-b-none tgrid">
+				<thead>
+					<tr>
+						<th width="20"><label class="i-checks m-b-none"> <input id="checkAllRow" 
+								type="checkbox"><i></i>
+						</label></th>
+						<th field="name">姓名</th>
+						<th field="account">帐号</th>
+						<th field="role">角色</th>
+						<th field="status">状态</th>
+						<th field="last_ip">最后登录ip</th>
+						<th width="110" field="_operate_wrapper_">操作</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+				<tfoot id="pagination" class="hide-if-no-paging"></tfoot>
+			</table>
+		  </form>
+		</div>
+	</div>
+</div>
+<script>
+$(".chosen-select").chosen();
+</script>
+<?php include(__DIR__.'/../layout/footer.phtml');?>

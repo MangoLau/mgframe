@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="xsrf" content="<?php echo Security::getXsrfToken();?>">
+  <title>AdminLTE 2 | Log in</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="<?php echo $resourcesUri; ?>/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="<?php echo $resourcesUri; ?>/adminlte/bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="<?php echo $resourcesUri; ?>/adminlte/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="<?php echo $resourcesUri; ?>/adminlte/dist/css/AdminLTE.min.css">
+  <!-- iCheck -->
+  <!-- <link rel="stylesheet" href="<?php echo $resourcesUri; ?>/adminlte/plugins/iCheck/square/blue.css"> -->
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="<?php echo $resourcesUri; ?>/adminlte/plugins/html5shiv.min.js"></script>
+  <script src="<?php echo $resourcesUri; ?>/adminlte/plugins/respond.min.js"></script>
+  <![endif]-->
+  <!-- Google Font -->
+  <link rel="stylesheet" href="<?php echo $resourcesUri; ?>/adminlte/plugins/googlefonts.css">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="#"><b>管理后台</b><small>[<?php echo $YafEnviron == 'product' ? '正式' : ($YafEnviron == 'test' ? '测试' : '开发'); ?>]</small></a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="login-box-body">
+    <p class="login-box-msg">登录您的账号，无账号请联系管理员添加</p>
+
+    <form action="" method="post" id="frmLogin">
+      <div class="form-group has-feedback">
+        <input type="text" class="form-control" placeholder="账号" name="account" value="" />
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <input type="password" class="form-control" placeholder="密码" name="password" value="" />
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+      <div class="row">
+        <div class="col-xs-8">
+<!--           <div class="checkbox icheck"> -->
+<!--             <label> -->
+<!--               <input type="checkbox"> 保存登录状态 -->
+<!--             </label> -->
+<!--           </div> -->
+        </div>
+        <!-- /.col -->
+        <div class="col-xs-4">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
+        </div>
+        <!-- /.col -->
+      </div>
+    </form>
+  </div>
+  <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery 3 -->
+<script src="<?php echo $resourcesUri; ?>/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="<?php echo $resourcesUri; ?>/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- iCheck -->
+<!-- <script src="<?php echo $resourcesUri; ?>/adminlte/plugins/iCheck/icheck.min.js"></script> -->
+<!-- 管理后台公共库 -->
+<script src="<?php echo $resourcesUri; ?>/admin/common.js"></script>
+<script>
+$(function () {
+	//初始化复制框控件
+//     $('input').iCheck({
+//         checkboxClass: 'icheckbox_square-blue',
+//         radioClass: 'iradio_square-blue',
+//         increaseArea: '20%' /* optional */
+//     });
+
+    //表单提交
+	$('#frmLogin').submit(function(){
+		var form = this;
+		if(form.account.value == '') {
+			$.alert({'msg': '请输入账号！', 'style': 'danger'});
+			return false;
+		} else if(form.password.value == '') {
+			$.alert({'msg': '请输入密码！', 'style': 'danger'});
+			return false;
+		}
+		$('#frmLogin button:submit').html('登录中..').attr('disabled','disabled');
+		$.ajax({
+			'headers': {"XSRF": $('meta[name=xsrf]').attr('content')},
+			'url': '/admin/login/dologin',
+			'type': 'post',
+			'dataType': 'json',
+			'data': $('#frmLogin').serialize(),
+			'success': function(result) {
+				if(typeof(result.code) != 'undefined' && result.code == 1) {
+					window.location = 'admin/index/index';
+				} else {
+					$("#frmLogin button:submit").html("登陆").attr("disabled",false);
+					$.alert({'msg': result.msg, 'style': 'danger'});
+				}
+			},
+			'error' : function(error) {
+				$("#frmLogin button:submit").html("登陆").attr("disabled",false);
+				$.alert({'msg': '网路繁忙，稍后再试~!', 'style': 'danger'});
+			}
+		});
+		return false;
+	});
+});
+</script>
+</body>
+</html>

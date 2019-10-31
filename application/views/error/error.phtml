@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta charset="utf-8"/>
+        <title><?php echo get_class($exceptions[0]); ?></title>
+        <style>
+            html,body,ul,li {margin:0;padding:0;}
+            body {background-color: #ECECEC; font-size:13px; color: #333;}
+            h1,h2,h3,h4 {color: #1F414C;font-weight:bold;}
+            pre,.errorDiv {background-color:#E4E4E4;padding: 10px;font-size: 14px;}
+            .errorDiv{line-height:24px;}
+            span.file { color: #E2614B;}
+            span.line { color: #F5133E;font-size:16px}
+            .strong{ font-weight: bold;}
+            a { color: #000099; }a:visited { color: #666; }
+            a:hover { color: #000099; text-decoration: none; }
+            .traces code {font-size:14px;line-height:24px;}
+            code {color:#674753;}
+            .traces pre {
+                white-space: pre-wrap;white-space: -moz-pre-wrap;
+                white-space: pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;
+            }
+            #head {background:#474D57;padding:5px;}
+            #head h1 {margin:0;padding:0;height:50px;line-height:50px;color:#A29E9E;}
+            #foot {margin-top:15px;text-align:center;font-family:verdana;font-size:12px;}
+        </style>
+    </head>
+    <body>
+        <div id="head"><h1><?php echo get_class($exceptions[0]); ?></h1></div>
+        <?php foreach ($exceptions as $e) {?>
+        <div class="errorDiv strong">
+            <span class="message"><?php echo $e->getMessage(); ?></span><br>file:  
+        	<span class="file"><?php echo $e->getFile(); ?></span> on line 
+            <span class="line"><?php echo $e->getLine(); ?></span>
+        </div>
+        <?php }?>
+        <div class="traces">
+            <h2>Exception Trace</h2>
+            <pre><code><?php echo $exceptions[0]->getTraceAsString(); ?></code></pre>
+        </div>
+        <div class="traces">
+            <h2>Debug Backtrace</h2>
+            <pre><code><?php debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS); ?></code></pre>
+        </div>
+        <div id="foot">&copy;<?php echo date('Y');?> MangoLau &lt;mangolau34@gmail.com&gt;</div>
+</body>
+</html>

@@ -1,28 +1,15 @@
 <?php
 
-define('ROOT_PATH', realpath('../'));
-define('DS', DIRECTORY_SEPARATOR);
-define('APP_PATH', ROOT_PATH . DS . 'app');
-define('CORE_PATH', ROOT_PATH . DS . 'Core');
-define('MODULE', 'app');
-
-define('DEBUG', true);
-
-include CORE_PATH . DS . 'Common/function.php';
-
-include (ROOT_PATH . DS . 'vendor/autoload.php');
-
-if (DEBUG) {
-    $whoops = new \Whoops\Run;
-    $option = new \Whoops\Handler\PrettyPageHandler();
-    $option->setPageTitle('系统开小差啦！');
-    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-    $whoops->register();
-	ini_set('display_error', 'On');
+/**
+ * @author MangoLau
+ */
+error_reporting(E_ALL & ~E_NOTICE);
+define('ROOT_PATH', realpath(dirname(__FILE__).'/../'));
+include ROOT_PATH . '/vendor/autoload.php';
+$app = new Yaf\Application(ROOT_PATH.'/config/app.ini');
+if (PHP_SAPI == 'cli') {
+    $req = new \Yaf\Request\Simple();
+    $app->bootstrap()->getDispatcher()->dispatch($req);
 } else {
-	ini_set('display_error', 'Off');
+    $app->bootstrap()->run();
 }
-
-Core\Log::init();
-
-Core\Mg::run();
