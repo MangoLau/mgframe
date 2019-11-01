@@ -69,6 +69,9 @@ class ToolsController extends Admin_ProtectedController
         return $this->layout('exec', $vars);
     }
 
+    /**
+     * redis运行情况
+     */
     public function cacheAction()
     {
         if ($_POST['load']) {
@@ -108,5 +111,55 @@ class ToolsController extends Admin_ProtectedController
             ],
         ];
         return $this->layout('cache', $vars);
+    }
+
+    /**
+     * 时间戳转换
+     */
+    public function timestampAction()
+    {
+        $vars = [
+            'layout_title' => '开发工具',
+            'layout_desc' => '时间戳转换',
+            'layout_links' => [
+                ['name' => '首页', 'url' => '/admin/index/index', 'icon'  => 'fa-dashboard'],
+                ['name' => '开发工具', 'url' => '/admin/tools/index'],
+                ['name' => '时间戳转换', 'active' => 1]
+            ],
+            'layout_css' => [
+                'admin/tools/page_timestamp.css',
+            ],
+            'layout_script' => [
+                'admin/tools/page_timestamp.js',
+            ],
+            'layout_js_vars' => [
+            ],
+        ];
+        return $this->layout('timestamp', $vars);
+    }
+
+    /**
+     * JSON格式化工具
+     */
+    public function jsonAction()
+    {
+        $vars = [
+            'layout_title' => '开发工具',
+            'layout_desc' => 'JSON',
+            'layout_links' => [
+                ['name' => '首页', 'url' => '/admin/index/index', 'icon'  => 'fa-dashboard'],
+                ['name' => '开发工具', 'url' => '/admin/tools/index'],
+                ['name' => 'JSON', 'active' => 1]
+            ],
+            'layout_css' => [
+                'admin/tools/page_json.css'
+            ],
+            'layout_script' => [
+                'admin/tools/jsoneditor.js',
+            ],
+            'layout_js_vars' => [
+            ],
+        ];
+        return $this->layout('json', $vars);
     }
 }
