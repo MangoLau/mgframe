@@ -15,12 +15,12 @@ cd $pathApp
 
 echo "${Ymd},${hour}:${minute}" >> ${pathApp}logs/cron.txt
 
+php -f ${pathPublic}/index.php 'request_uri=/async/daemon/p/1' >/dev/null 2>&1 &	#异步处理
+
 #每30分钟执行的任务
 if [ "0" -eq "$(($minute % 30))" ] ; then
-    #php -f ${pathApp}public/index.php 'request_uri=/crontab/settlePrediction' >/dev/null 2>&1 & #比赛结束后预测结算，半个钟跑一次
 fi
 
 #每天0点执行点任务
 if [ "$hour" -eq "0" ] && [ "$minute" -eq "0" ]; then
-    #php -f ${pathApp}public/index.php 'request_uri=/crontab/updateRankWithPrediction' >/dev/null 2>&1 & #更新专家大神榜单
 fi

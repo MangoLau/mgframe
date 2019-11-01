@@ -1,0 +1,45 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="box box-primary">
+			<div class="box-header with-border">
+				<h3 class="box-title">缓存状态监控</h3>
+			</div>
+			<div class="box-body">
+                <table class="table table-bordered">
+                	<thead>
+                		<tr>
+                			<th>名称</th>
+                			<th>地址</th>
+                			<th>PID</th>
+                			<th>版本</th>
+                			<th>上线时长</th>
+                			<th>CPU耗时</th>
+                			<th>OPS</th>
+                			<th>空间</th>
+                			<th>已用空间</th>
+                			<th>过期数</th>
+                			<th>丢弃数</th>
+                			<th>连接数</th>
+                			<th>阻塞数</th>
+                			<th>累计连接</th>
+                			<th>累计请求</th>
+                			<th>拒绝连接数</th>
+                			<th>命中</th>
+                			<th>未命中</th>
+                			<th>DB0</th>
+                			<!--
+                			<th>最长输出列表</th>
+                			<th>最大输入缓冲</th>
+                			-->
+                			<th>DB列表</th>
+                		</tr>
+                	</thead>
+                	<tbody id="list"></tbody>
+                </table>
+			</div>
+			<div class="overlay" id="loading" style="display:none;">
+              <i class="fa fa-refresh fa-spin"></i>
+            </div>
+		</div>
+	</div>
+</div>

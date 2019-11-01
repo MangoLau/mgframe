@@ -1,0 +1,32 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="box box-primary">
+			<div class="box-header with-border">
+				<h3 class="box-title">远程代码执行</h3>
+			</div>
+			<div class="box-body">
+                <p>
+                    常用操作：
+                    <!--[<a href="#" id="restart_crontab_daemon">重启/crontab/daemon</a>]-->
+                    [<a href="#" id="restart_async_daemon">重启/async/daemon</a>]
+                </p>
+				<form id="mainform">
+					<div class="form-group">
+						<label>&lt;?php</label>
+						<textarea class="form-control" name="code" rows="10" placeholder="这里输入要执行的代码"></textarea>
+						<label>?&gt;</label>
+					</div>
+					<button type="submit" class="btn btn-primary">运行</button>
+					<hr />
+					<div class="form-group">
+						<label>结果输出：</label>
+						<textarea class="form-control" name="output" rows="20" readonly="readonly"></textarea>
+					</div>
+				</form>
+			</div>
+			<div class="overlay" id="loading" style="display:none;">
+              <i class="fa fa-refresh fa-spin"></i>
+            </div>
+		</div>
+	</div>
+</div>
