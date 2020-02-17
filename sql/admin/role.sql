@@ -4,7 +4,7 @@ CREATE TABLE `role` (
   `status` tinyint(1) DEFAULT NULL COMMENT '状态',
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
-  ADD PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

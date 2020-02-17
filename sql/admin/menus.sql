@@ -6,9 +6,9 @@ CREATE TABLE `menus` (
   `status` tinyint(1) UNSIGNED NOT NULL DEFAULT '0' COMMENT '状态 1:正常 0:禁用',
   `sort_no` smallint(5) UNSIGNED NOT NULL DEFAULT '0' COMMENT '排序值(越大越靠前)',
   `icon` varchar(40) NOT NULL DEFAULT '' COMMENT '图标',
-  ADD PRIMARY KEY (`menuid`),
-  ADD KEY `idx_status` (`status`),
-  ADD KEY `orderno` (`sort_no`)
+  PRIMARY KEY (`menuid`),
+  KEY `idx_status` (`status`),
+  KEY `orderno` (`sort_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='后台菜单模块列表';
 
 --

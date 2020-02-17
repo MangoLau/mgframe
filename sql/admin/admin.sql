@@ -10,8 +10,8 @@ CREATE TABLE `admin` (
   `last_login_time` datetime DEFAULT NULL,
   `create_time` datetime NOT NULL,
   `update_time` datetime NOT NULL,
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `account` (`account`);
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `account` (`account`);
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

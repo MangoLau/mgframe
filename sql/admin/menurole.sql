@@ -2,8 +2,8 @@ CREATE TABLE `menurole` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '记录ID',
   `menuid` int(10) UNSIGNED NOT NULL COMMENT '后台菜单模块ID',
   `roleid` int(10) UNSIGNED NOT NULL COMMENT '可访问角色ID',
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `menuid` (`menuid`,`roleid`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `menuid` (`menuid`,`roleid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='后台菜单模块访问角色配置表';
 
 --
