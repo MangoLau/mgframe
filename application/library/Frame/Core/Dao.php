@@ -357,7 +357,7 @@ class Dao
             $params[] = $v;
         }
         $sets = rtrim($sets, ',');
-        $this->params = array_merge($this->params, $params);
+        $this->params = array_merge($params, $this->params);
         $this->sql = "UPDATE `{$this->table}` SET {$sets}";
         return $this->run(0);
     }
