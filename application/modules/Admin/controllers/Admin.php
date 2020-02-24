@@ -39,7 +39,7 @@ class AdminController extends Admin_ProtectedController
         $vars = [
             'layout_title' => '修改密码',
             'layout_desc' => '修改您在管理后台的登录密码',
-            'layout_script' => 'somi/admin/modifypasswd.js',
+            'layout_script' => 'admin/admin/modifypasswd.js',
             'layout_links' => [
                 ['name' => '首页', 'url' => '/index/index', 'icon'  => 'fa-dashboard'],
                 ['name' => '修改密码', 'active' => 1]
