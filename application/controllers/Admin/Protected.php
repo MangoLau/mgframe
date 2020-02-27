@@ -100,7 +100,7 @@ class Admin_ProtectedController extends Common_PublicController
                 continue;
             }
             $item['open'] = false;
-            $item['active'] = ($item['index_url'] == $current_uri);
+            $item['active'] = (strtolower($item['index_url']) == $current_uri);
             $item['menus'] = [];
             $menus[$item['menuid']] = $item;
             unset($menuRows[$key]);
@@ -110,7 +110,7 @@ class Admin_ProtectedController extends Common_PublicController
                 continue;
             }
             $item['open'] = false;
-            $item['active'] = ($item['index_url'] == $current_uri);
+            $item['active'] = (strtolower($item['index_url']) == $current_uri);
             if ($item['active']) {
                 $menus[$item['parent_id']]['open'] = true;
             }
